@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "sdkVersion": "22.0.0",
+    "name": "React Native Starter Kit",
+    "slug": "react-native-starter-kit",
+    "icon": "src/images/app-icon.png",
+    "privacy": "public",
+    "androidStatusBarColor": "#00000000",
+    "androidStatusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#00000000"
+    }
+  },
+  "android": {
+    "permissions": [
+      "ACCESS_FINE_LOCATION"
+    ],
+    "config": {
+      "googleMaps": {
+        "apiKey": "AIzaSyBKRwVucW38SzlhVysF0wzq0TATsR03_9I"
+      }
+    }
+  }
+}

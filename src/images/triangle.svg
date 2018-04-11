@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   viewBox="0 0 329.96318 353.08525"
+   enable-background="new 0 0 382.365 382.365"
+   width="441.83215"
+   height="472.79343"
+   id="svg3418"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="triangle.svg"
+   inkscape:export-filename="/home/connor/Downloads/work/PHX/src/images/triangle3.png"
+   inkscape:export-xdpi="12.22"
+   inkscape:export-ydpi="12.22">
+  <defs
+     id="defs3426" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2400"
+     inkscape:window-height="1532"
+     id="namedview3424"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.7111432"
+     inkscape:cx="164.04237"
+     inkscape:cy="115.42407"
+     inkscape:window-x="0"
+     inkscape:window-y="68"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3418" />
+  <g
+     style="opacity:0.95700001;filter:url(#filter57504)"
+     inkscape:export-ydpi="97.769997"
+     inkscape:export-xdpi="97.769997"
+     transform="translate(-26.201239,-32.433692)"
+     id="g5167">
+    <path
+       sodipodi:nodetypes="ccsccsaaacc"
+       style="fill:#6d93cb;fill-opacity:1"
+       inkscape:connector-curvature="0"
+       id="path5169"
+       d="M 325.70666,317.04396 208.93463,74.168937 c -3.76752,-7.836955 -10.40435,-12.514653 -17.7524,-12.514653 -7.34805,0 -13.98417,4.677698 -17.75168,12.514653 L 56.659234,317.04396 c -3.865314,8.03793 -3.95089,17.6988 -0.23012,25.84213 3.720768,8.14332 10.646678,12.04775 17.9818,13.00591 41.340116,5.40013 75.080706,-44.8084 116.772036,-44.8084 41.69132,1e-5 75.43191,50.20853 116.77203,44.8084 7.33512,-0.95816 14.26103,-4.8617 17.9818,-13.00591 3.72077,-8.14244 3.63448,-17.80331 -0.23012,-25.84213 z" />
+  </g>
+</svg>
