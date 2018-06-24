@@ -15,7 +15,7 @@ const shadowExpanded = {
   left: 0,
   width: width,
   height: 145,
-  backgroundColor: '#fff',
+  backgroundColor: '#000',
 }
 
 const shadowCollapsed = {
@@ -26,8 +26,8 @@ const expandedSearch = {
   textInputContainer: {
     position: 'absolute',
     top: 80,
-    left: '3%',
-    width: '94%',
+    left: '8%',
+    width: '84%',
     height: 45,
     backgroundColor: '#E9E9EF',
     borderWidth: 0,
@@ -53,10 +53,10 @@ const collapsedSearch = {
     left: '4%',
     width: '92%',
     height: 55,
-    backgroundColor: '#fff',
-    borderWidth: 0,
-    borderTopColor: 'transparent',
-    borderBottomColor: 'transparent'
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#fff',
+    borderRadius: 12,
   },
   textInput: {
     marginTop: 0,
@@ -65,7 +65,10 @@ const collapsedSearch = {
     marginLeft: 0,
     color: '#696969',
     height: 55,
-    fontSize: 17
+    fontSize: 17,
+    borderWidth: 1,
+    borderColor: '#fff',
+    borderRadius: 12,
   },
 }
 
@@ -76,7 +79,7 @@ const fromContainerCollapsed = {
     left: '4%',
     width: '92%',
     height: 55,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     borderWidth: 0,
     borderTopColor: 'transparent',
     borderBottomColor: 'transparent'
@@ -96,8 +99,8 @@ const fromContainerExpanded = {
   textInputContainer: {
     position: 'absolute',
     top: 0,
-    left: '3%',
-    width: '94%',
+    left: '8%',
+    width: '84%',
     height: 70,
     backgroundColor: '#E9E9EF',
     borderWidth: 0,
@@ -113,7 +116,7 @@ const fromContainerExpanded = {
     color: '#696969',
     backgroundColor: '#E9E9EF',
     height: 45,
-    fontSize: 17
+    fontSize: 17,
   },
 }
 

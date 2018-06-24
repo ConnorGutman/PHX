@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {calculateRegion} from '../../lib/MapHelpers';
 
 import triangleIcon from '../../images/triangle.png';
+import arrowIcon from '../../images/arrow.png';
 import dotIcon from '../../images/dot.png';
 
 import Loading from './Loading';

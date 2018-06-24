@@ -11,7 +11,11 @@
       "backgroundColor": "#00000000"
     }
   },
+  "ios": {
+     "bundleIdentifier": "com.gwynn.phx"
+   },
   "android": {
+    "package": "com.gwynn.phx",
     "permissions": [
       "ACCESS_FINE_LOCATION"
     ],

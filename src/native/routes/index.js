@@ -87,7 +87,7 @@ const Index = (
           )}
           {...DefaultProps.navbarProps}
         >
-          <Scene key="store" component={SearchComponent} />
+          <Scene key="store" component={WalletComponent} />
         </Stack>
 
         <Stack
