@@ -1,31 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Platform, Animated, View, TouchableOpacity, Text } from 'react-native';
-import { Constants, Location, Permissions } from 'expo';
+import { Dimensions, View, FlatList, TouchableOpacity, RefreshControl, Image, Text } from 'react-native';
 import MapView, { ProviderPropType, Marker, AnimatedRegion } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
+import { Container, Content, Card, CardItem, Body, Button } from 'native-base';
+import Carousel from 'react-native-snap-carousel';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-//import {calculateRegion} from '../../lib/MapHelpers';
+import {calculateRegion} from '../../lib/MapHelpers';
 
 import modernTriangleIcon from '../../images/modernTriangleGreen.png';
+import arrowIcon from '../../images/arrow.png';
+import dotIcon from '../../images/dot.png';
 
 import Loading from './Loading';
 import Error from './Error';
+import Header from './Header';
 import Search from './Search';
-import AboutCallout from './AboutCallout';
+import Spacer from './Spacer';
+import Place from './Place';
 
 import Styles from './Styles/AboutStyles';
 
 const origin = 'Desoto Market';
 const destination = 'Shady Park';
 const GOOGLE_MAPS_APIKEY = 'AIzaSyBKRwVucW38SzlhVysF0wzq0TATsR03_9I';
-
-const LATITUDE        = 37.78825;
-const LONGITUDE       = -122.4324;
-const LATITUDE_DELTA  = 0.1;
-const LONGITUDE_DELTA = 0.1;
 
 const mapStyles = [
     {
@@ -447,7 +447,46 @@ const mapStyles = [
     }
 ];
 
-class MetroElementListing extends React.Component {
+const entries = [
+    {
+        title: 'Royal Coffee Bar',
+        type: 'coffee',
+        distance: '0.2 Mi away',
+        thumbnail: 'https://raillife.com/wp-content/uploads/2014/09/Royal-Coffee-Tempe.jpg?x74949'
+    },
+    {
+        title: 'Cartel Coffee Lab',
+        type: 'coffee',
+        distance: '1 Mi away',
+        thumbnail: 'https://media.bizj.us/view/img/9615002/cartelchemex-servicemed-res*750xx2808-1583-0-96.jpg'
+    },
+    {
+        title: 'Infusion',
+        type: 'coffee',
+        distance: '1.25 Mi away',
+        thumbnail: 'https://awarelabs-lq5s8w62.s3.amazonaws.com/gallery/lCO59BsD.jpg'
+    },
+    {
+        title: 'Be Coffee',
+        type: 'coffee',
+        distance: '4 Mi away',
+        thumbnail: 'https://media-cdn.tripadvisor.com/media/photo-w/12/74/18/29/front-entrance-off-of.jpg'
+    },
+    {
+        title: 'Fair Trade Cafe',
+        type: 'coffee',
+        distance: '4 Mi away',
+        thumbnail: 'http://flourishphx.com/wp-content/uploads/2014/10/fairtrade3.jpg'
+    },
+    {
+        title: 'Lux Central',
+        type: 'coffee',
+        distance: '6 Mi Away',
+        thumbnail: 'https://i2.wp.com/endoedibles.com/wp-content/uploads/2017/01/DSC01107.jpg'
+    }
+];
+
+class PlacesElementListing extends React.Component {
   constructor(props) {
     super(props)
     /* ***********************************************************
@@ -455,7 +494,7 @@ class MetroElementListing extends React.Component {
     * Set the array of locations to be displayed on your map. You'll need to define at least
     * a latitude and longitude as well as any additional information you wish to display.
     *************************************************************/
-    const locations = this.props.metroElements;
+    const locations = this.props.placesElements;
     /* ***********************************************************
     * STEP 2
     * Set your initial region either by dynamically calculating from a list of locations (as below)
@@ -467,96 +506,101 @@ class MetroElementListing extends React.Component {
       latPadding: 0.05,
       longPadding: 0.05
     })*/
+    const region = {latitude: 33.4521356, longitude: -112.0764201, latitudeDelta: 0.1, longitudeDelta: 0.1}
     this.state = {
-      animatedStartValue: new Animated.Value(0),
-      region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA
-      },
+      region,
       locations,
-      position: {
-        coords: {
-        latitude: 33.4521356,
-        longitude: -112.0764201,
-        }
-      },
+      showUserLocation: true,
+      showsMyLocationButton: false,
+      startTransition: 1,
+      endTransition: 4,
     }
     this.renderMapMarkers = this.renderMapMarkers.bind(this)
+    this.onRegionChange = this.onRegionChange.bind(this)
     this._findMe = this._findMe.bind(this)
+    this._goTo = this._goTo.bind(this)
+    //this.animate = this.animate.bind(this)
   }
 
-  _findMe() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({
-          position: {
-            coords: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            }
-          },
-          region: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.001,
-          },
-          error: null,
-        });
+  _findMe(){
+  navigator.geolocation.getCurrentPosition(
+    ({coords}) => {
+      const {latitude, longitude} = coords
+      this.setState({
+        position: {
+          latitude,
+          longitude,
+        },
+        region: {
+          latitude,
+          longitude,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.001,
+        }
+      })
+      this._map.animateToRegion({
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01
+      })
+    },
+    (error) => alert(JSON.stringify(error)),
+    {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+  )
+}
 
-//        this._map.animateToRegion({
-  //          latitude: position.coords.latitude,
-    //        longitude: position.coords.longitude,
-      //      latitudeDelta: 0.01,
-        //    longitudeDelta: 0.01
-      //  });
-      },
-      (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
-  }
+_goTo(location) {
+  alert(location)
+  console.log(location)
+}
 
-componentWillMount() {
+/*animate() {
+  const {startTransition, endTransition} = this.state;
+  if(startTransition < endTransition){
+    let currentTransition = startTransition + 1;
+    this.setState({startTransition: currentTransition});
+  } else {
+    this.setState({startTransition: 1});
   }
+  let x = setTimeout(()=>{
+    this.animate()
+  }, 5);
+} */
+
+/*renderImg(imgTrans) {
+  if(imgTrans === 1) {
+    return require('../../images/triangle.png');
+  }
+  if(imgTrans === 2) {
+    return require('../../images/triangle.png');
+  }
+  if(imgTrans === 3) {
+    return require('../../images/triangle.png');
+  }
+  if(imgTrans === 4) {
+    return require('../../images/triangle.png');
+  }
+} */
 
 componentDidMount() {
-
-  navigator.geolocation.getCurrentPosition(
-      (position) => {
+    //this.animate();
+    this.watchID = navigator.geolocation.watchPosition(
+      ({coords}) => {
+        const {lat, long} = coords
         this.setState({
-          region: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA,
-            accuracy: position.coords.accuracy
+          position: {
+            lat,
+            long
           }
-        });
-      },
-      (error) => alert(error.message),
-      { enableHighAccuracy: true, timeout: 20000 }
-    );
-
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(this.state.animatedStartValue, {
-          toValue: 1,
-          duration: 1000
-        }),
-        Animated.timing(this.state.animatedStartValue, {
-          toValue: 0.5,
-          duration: 1000
         })
-      ])
-    ).start()
+    },{},{});
 
-
+    this._findMe();
   }
 
   componentWillUnmount() {
-
+    navigator.geolocation.clearWatch(this.watchID);
   }
 
   componentWillReceiveProps(newProps) {
@@ -593,14 +637,23 @@ componentDidMount() {
     * Customize the appearance and location of the map marker.
     * Customize the callout in ./AboutCallout.js
     *************************************************************/
+
+    // Start indicator animation
+    const {startTransition} = this.state;
+
     return (
       <MapView.Marker key={location.id} image={modernTriangleIcon} optimized={false} coordinate={{
         latitude: location.latitude,
         longitude: location.longitude
       }} style={{transform: [{rotate: `${location.bearing}deg`}]}}>
-      <AboutCallout location={location} onPress={this.calloutPress}/>
     </MapView.Marker>
   )
+  }
+
+  _renderItem ({item, index}) {
+    return (
+        <Place title={item.title} type={item.type} distance={item.distance} thumbnail={item.thumbnail}/>
+    );
   }
 
   render() {
@@ -612,31 +665,38 @@ componentDidMount() {
 
   const keyExtractor = item => item.id;
 
-  const onPress = item => Actions.metroElement({ match: { params: { id: String(item.id) } } });
+  const onPress = item => Actions.placesElement({ match: { params: { id: String(item.id) } } });
 
   return (
     <View style={Styles.mapWraper}>
-      <TouchableOpacity activeOpacity={0.7} style={Styles.mapButton} onPress={() => this._findMe()}>
+      <TouchableOpacity activeOpacity={0.7} style={Styles.mapButton2} onPress={() => this._findMe()}>
         <Icon name="crosshairs-gps" color="#696969" size={25} />
       </TouchableOpacity>
-      <Search />
-      <MapView ref={component => {this._map = component;}} style={Styles.map} customMapStyle={mapStyles} region={this.state.region} showsUserLocation={true} followUserLocation={true} showsMyLocationButton={true} showsCompass={true}>
-        {this.props.metroElements.map((location) => this.renderMapMarkers(location))}
-        <MapView.Marker
-            coordinate={{
-              latitude: this.state.region.latitude,
-              longitude: this.state.region.longitude,
-            }}>
-            <View>
-              <Text style={{color: '#000'}}>
-                { this.state.region.latitude } / { this.state.region.longitude }
-              </Text>
-            </View>
-          </MapView.Marker>
-
+      <Search goTo={() => this._goTo()} />
+      <View style={Styles.carouselWrapper}>
+        <Carousel
+                  layout={'default'}
+                  data={entries}
+                  renderItem={this._renderItem}
+                  sliderWidth={Dimensions.get('window').width}
+                  itemWidth={(Dimensions.get('window').width)*0.45}
+                  inactiveSlideScale={0.95}
+                  inactiveSlideOpacity={1}
+                  enableMomentum={true}
+                  activeSlideAlignment={'start'}
+                  activeAnimationType={'spring'}
+                  activeAnimationOptions={{
+                      friction: 4,
+                      tension: 40
+                  }}
+                  containerCustomStyle={Styles.carouselContainer}
+                  contentContainerCustomStyle={Styles.carouselContentContainer}
+                />
+              </View>
+      <MapView ref={component => {this._map = component;}} style={Styles.map} customMapStyle={mapStyles} initialRegion={this.state.region}  onRegionChangeComplete={this.onRegionChange} showsUserLocation={this.state.showUserLocation} showsMyLocationButton={this.state.showsMyLocationButton} showsCompass={true}>
         <MapViewDirections
     mode="transit"
-    origin={this.state.region}
+    origin={this.state.position}
     destination={destination}
     apikey={GOOGLE_MAPS_APIKEY}
     strokeWidth={5}
@@ -645,22 +705,21 @@ componentDidMount() {
     lineJoin="round"
   />
       </MapView>
-      <Animated.Text style={{marginTop: 250, opacity: this.state.animatedStartValue}}>{this.state.position.coords.latitude} | {this.state.position.coords.longitude}</Animated.Text>
     </View>
   );
 }
 }
 
-MetroElementListing.propTypes = {
+PlacesElementListing.propTypes = {
   error: PropTypes.string,
   loading: PropTypes.bool.isRequired,
-  metroElements: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  placesElements: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   reFetch: PropTypes.func,
 };
 
-MetroElementListing.defaultProps = {
+PlacesElementListing.defaultProps = {
   error: null,
   reFetch: null,
 };
 
-export default MetroElementListing;
+export default PlacesElementListing;

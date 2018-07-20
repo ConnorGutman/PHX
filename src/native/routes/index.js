@@ -1,5 +1,12 @@
 import React from 'react';
-import { Scene, Tabs, Stack } from 'react-native-router-flux';
+import {
+  Scene,
+  Overlay,
+  Tabs,
+  Modal,
+  Stack,
+  Lightbox,
+} from 'react-native-router-flux';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -11,12 +18,18 @@ import MetroElementsContainer from '../../containers/Metro';
 import MetroElementsComponent from '../components/Metro';
 //import MetroViewComponent from '../components/MetroElement';
 
+import PlacesElementsContainer from '../../containers/Places';
+import PlacesElementsComponent from '../components/Places';
+
+import BusinessPageComponent from '../components/BusinessPage';
+
 import RecipesContainer from '../../containers/Recipes';
 import RecipesComponent from '../components/Recipes';
 import RecipeViewComponent from '../components/Recipe';
 
 import WalletComponent from '../components/Wallet';
 import SearchComponent from '../components/Search';
+import SearchPlacesComponent from '../components/SearchPlaces';
 
 import SignUpContainer from '../../containers/SignUp';
 import SignUpComponent from '../components/SignUp';
@@ -62,7 +75,7 @@ const Index = (
         </Stack>
 
         <Stack
-          key="home"
+          key="placesElements"
           icon={({ focused }) => (
             <MaterialIcon
                 size={24}
@@ -72,12 +85,12 @@ const Index = (
           )}
           {...DefaultProps.navbarProps}
         >
-          <Scene key="home" component={RecipesContainer} Layout={RecipesComponent} />
+          <Scene key="placesElements" component={PlacesElementsContainer} Layout={PlacesElementsComponent} />
         </Stack>
 
         <Stack
-          key="recipes"
-          title="RECIPES"
+          key="wallet"
+          title="WALLET"
           icon={({ focused }) => (
             <MaterialIcon
                 size={24}
@@ -87,7 +100,7 @@ const Index = (
           )}
           {...DefaultProps.navbarProps}
         >
-          <Scene key="store" component={WalletComponent} />
+          <Scene key="wallet" component={WalletComponent} />
         </Stack>
 
         <Stack
@@ -138,6 +151,20 @@ const Index = (
         </Stack>
       </Tabs>
     </Scene>
+    <Scene
+      key="businessPage"
+      title="businessPage"
+      component={BusinessPageComponent}
+      hideNavBar={true}
+      back
+    />
+    <Scene
+      key="searchPlaces"
+      title="searchPlaces"
+      component={SearchPlacesComponent}
+      hideNavBar={true}
+      back
+    />
 
     <Scene
       back

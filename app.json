@@ -17,7 +17,8 @@
   "android": {
     "package": "com.gwynn.phx",
     "permissions": [
-      "ACCESS_FINE_LOCATION"
+      "ACCESS_COARSE_LOCATION",
+      "ACCESS_FINE_LOCATION",
     ],
     "config": {
       "googleMaps": {

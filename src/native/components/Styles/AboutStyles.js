@@ -38,5 +38,33 @@ export default StyleSheet.create({
    shadowOpacity: 0.12,
    opacity: 1,
    zIndex: 10,
-}
+},
+mapButton2: {
+ position: 'absolute',
+ bottom: 200,
+ right: 15,
+ width: 55,
+ height: 55,
+ borderRadius: 85/2,
+ backgroundColor: '#fff',
+ justifyContent: 'center',
+ alignItems: 'center',
+ shadowColor: 'black',
+ shadowRadius: 8,
+ shadowOpacity: 0.12,
+ opacity: 1,
+ zIndex: 10,
+},
+carouselWrapper: {
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  bottom: 30,
+},
+carouselContainer: {
+
+},
+carouselContentContainer: {
+
+},
 })

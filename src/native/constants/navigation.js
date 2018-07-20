@@ -25,7 +25,7 @@ export default {
   icons: {},
 
   activeIcon: {
-    color: '#85B3F8',
+    color: '#ADD0C6', // OLD #85B3F8
   },
 
   inactiveIcon: {
