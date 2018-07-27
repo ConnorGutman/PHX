@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Container, Content, Card, CardItem, Body, Button, Text } from 'native-base';
-import {BoxShadow} from 'react-native-shadow';
+import BoxShadow from 'react-native-shadow';
 import * as Progress from 'react-native-progress';
 import PopupDialog, { DialogButton, SlideAnimation } from 'react-native-popup-dialog';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { QRCode } from 'react-native-custom-qr-codes';
+import QRCode from 'react-native-custom-qr-codes';
 import Dimensions from 'Dimensions';
 const {width, height} = Dimensions.get('window');
 
@@ -24,7 +24,6 @@ const shadowOpt = {
 			style:{marginTop: 15, marginBottom: 25}
 }
 
-// Ethers
 const ethers = require('ethers');
 const wallet = ethers.Wallet.createRandom();
 console.log(`wallet: ${wallet.address}`)
