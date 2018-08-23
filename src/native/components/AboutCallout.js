@@ -1,6 +1,8 @@
 import React from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { Callout } from 'react-native-maps'
+import busIcon from '../../images/bus.png'
+import airportIcon from '../../images/places/airplane.png'
 import Styles from './Styles/AboutCalloutStyles'
 
 export default class AboutCallout extends React.Component {
@@ -16,11 +18,21 @@ export default class AboutCallout extends React.Component {
     *************************************************************/
     const { location } = this.props
     return (
-      <Callout style={Styles.callout}>
-        <TouchableOpacity onPress={this.onPress}>
-          <Text>{location.route}</Text>
-          <Text>{location.bearing}</Text>
-        </TouchableOpacity>
+      <Callout tooltip={true} style={Styles.callout}>
+        <View style={Styles.container}>
+        <View style={Styles.bubble}>
+          <View style={Styles.amount}>
+            <TouchableOpacity onPress={this.onPress}>
+              <Text style={Styles.vehicleTitle}>Vehicle Info</Text>
+              <Text style={Styles.vehicleDetails}>Route: {location.route}</Text>
+              <Text style={Styles.vehicleDetails}>License Plate: {location.licensePlate}</Text>
+              <Text style={Styles.vehicleDetails}>Speed: {location.speed}MPH</Text>
+            </TouchableOpacity>
+          </View>
+          </View>
+       </View>
+       <View style={Styles.arrowBorder} />
+       <View style={Styles.arrow} />
       </Callout>
     )
   }

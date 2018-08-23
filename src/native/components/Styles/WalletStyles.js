@@ -58,6 +58,8 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: '#5FA390',
     borderRadius: 15,
+    marginTop: 15,
+    marginBottom: 25,
     marginHorizontal: 0,
     paddingHorizontal: 15,
     paddingVertical: 10,
@@ -147,6 +149,7 @@ export default StyleSheet.create({
   dismissButton: {
    width: 55,
    height: 55,
+   marginTop: 15,
    borderRadius: 85/2,
    backgroundColor: '#ADD0C6',
    justifyContent: 'center',

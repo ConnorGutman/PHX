@@ -24,7 +24,6 @@ import Place from './Place';
 import Styles from './Styles/AboutStyles';
 
 const origin = 'Desoto Market';
-const destination = 'Shady Park';
 const GOOGLE_MAPS_APIKEY = 'AIzaSyBKRwVucW38SzlhVysF0wzq0TATsR03_9I';
 
 const mapStyles = [
@@ -450,39 +449,57 @@ const mapStyles = [
 const entries = [
     {
         title: 'Royal Coffee Bar',
+        address: '502 S College Ave, Tempe, AZ 85281',
         type: 'coffee',
         distance: '0.2 Mi away',
-        thumbnail: 'https://raillife.com/wp-content/uploads/2014/09/Royal-Coffee-Tempe.jpg?x74949'
+        thumbnail: 'https://raillife.com/wp-content/uploads/2014/09/Royal-Coffee-Tempe.jpg?x74949',
+        lat: 33.4374644,
+        lng: -112.0705272
     },
     {
         title: 'Cartel Coffee Lab',
+        address: '225 W University Dr #101, Tempe, AZ 85281',
         type: 'coffee',
         distance: '1 Mi away',
-        thumbnail: 'https://media.bizj.us/view/img/9615002/cartelchemex-servicemed-res*750xx2808-1583-0-96.jpg'
+        thumbnail: 'https://media.bizj.us/view/img/9615002/cartelchemex-servicemed-res*750xx2808-1583-0-96.jpg',
+        lat: 33.421133,
+        lng: -111.9447876,
     },
     {
         title: 'Infusion',
+        address: '1301 E University Dr, Tempe, AZ 85281',
         type: 'coffee',
         distance: '1.25 Mi away',
-        thumbnail: 'https://awarelabs-lq5s8w62.s3.amazonaws.com/gallery/lCO59BsD.jpg'
+        thumbnail: 'https://awarelabs-lq5s8w62.s3.amazonaws.com/gallery/lCO59BsD.jpg',
+        lat: 33.419531,
+        lng: -111.9192487,
     },
     {
         title: 'Be Coffee',
+        address: '214 E Roosevelt St, Phoenix, AZ 85004',
         type: 'coffee',
         distance: '4 Mi away',
-        thumbnail: 'https://media-cdn.tripadvisor.com/media/photo-w/12/74/18/29/front-entrance-off-of.jpg'
+        thumbnail: 'https://media-cdn.tripadvisor.com/media/photo-w/12/74/18/29/front-entrance-off-of.jpg',
+        lat: 33.4587937,
+        lng: -112.0727027,
     },
     {
         title: 'Fair Trade Cafe',
+        address: '1020 N 1st Ave, Phoenix, AZ 85003',
         type: 'coffee',
         distance: '4 Mi away',
-        thumbnail: 'http://flourishphx.com/wp-content/uploads/2014/10/fairtrade3.jpg'
+        thumbnail: 'http://flourishphx.com/wp-content/uploads/2014/10/fairtrade3.jpg',
+        lat: 33.4593921,
+        lng: -112.0765234
     },
     {
         title: 'Lux Central',
+        address: '4402 N Central Ave, Phoenix, AZ 85012',
         type: 'coffee',
         distance: '6 Mi Away',
-        thumbnail: 'https://i2.wp.com/endoedibles.com/wp-content/uploads/2017/01/DSC01107.jpg'
+        thumbnail: 'https://i2.wp.com/endoedibles.com/wp-content/uploads/2017/01/DSC01107.jpg',
+        lat: 33.500484,
+        lng: -112.0762647
     }
 ];
 
@@ -514,11 +531,13 @@ class PlacesElementListing extends React.Component {
       showsMyLocationButton: false,
       startTransition: 1,
       endTransition: 4,
+      destination: 'Royal Coffee Bar'
     }
     this.renderMapMarkers = this.renderMapMarkers.bind(this)
     this.onRegionChange = this.onRegionChange.bind(this)
     this._findMe = this._findMe.bind(this)
     this._goTo = this._goTo.bind(this)
+    this._focusLocation = this._focusLocation.bind(this)
     //this.animate = this.animate.bind(this)
   }
 
@@ -656,6 +675,18 @@ componentDidMount() {
     );
   }
 
+  _focusLocation (place) {
+    this.setState({
+      destination: entries[place].address,
+    })
+    {/*this._map.animateToRegion({
+        latitude: entries[place].lat,
+        longitude: entries[place].lng,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01
+    })*/}
+  }
+
   render() {
   // Loading
   if (this.props.loading) return <Loading />;
@@ -683,6 +714,7 @@ componentDidMount() {
                   inactiveSlideScale={0.95}
                   inactiveSlideOpacity={1}
                   enableMomentum={true}
+                  onSnapToItem={(place) => this._focusLocation(place) }
                   activeSlideAlignment={'start'}
                   activeAnimationType={'spring'}
                   activeAnimationOptions={{
@@ -696,8 +728,8 @@ componentDidMount() {
       <MapView ref={component => {this._map = component;}} style={Styles.map} customMapStyle={mapStyles} initialRegion={this.state.region}  onRegionChangeComplete={this.onRegionChange} showsUserLocation={this.state.showUserLocation} showsMyLocationButton={this.state.showsMyLocationButton} showsCompass={true}>
         <MapViewDirections
     mode="transit"
-    origin={this.state.position}
-    destination={destination}
+    origin={this.state.region}
+    destination={this.state.destination}
     apikey={GOOGLE_MAPS_APIKEY}
     strokeWidth={5}
     strokeColor='#AACFD5'

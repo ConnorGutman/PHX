@@ -6,6 +6,16 @@ import { Router, Stack } from 'react-native-router-flux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 
 import { StyleProvider } from 'native-base';
+
+// symbol polyfills
+global.Symbol = require('core-js/es6/symbol');
+require('core-js/fn/symbol/iterator');
+
+// collection fn polyfills
+require('core-js/fn/map');
+require('core-js/fn/set');
+require('core-js/fn/array/find');
+
 import getTheme from '../../native-base-theme/components';
 import theme from '../../native-base-theme/variables/commonColor';
 

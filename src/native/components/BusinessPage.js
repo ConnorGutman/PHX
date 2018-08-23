@@ -63,8 +63,8 @@ class BusinessPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: 'Stumptown Coffee',
-      address: '128 SW 3rd Ave, Portland, OR 97204',
+      title: 'Royal Coffee Bar',
+      address: '502 S College Ave, Tempe, AZ 85281',
       type: 'coffee',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet efficitur ligula, non varius justo. Mauris non augue et libero finibus molestie. Maecenas arcu enim, volutpat blandit iaculis nec, dignissim ut velit. Vestibulum est velit, ultricies quis dictum et, mattis in erat. Quisque varius aliquet tortor ac cursus. Duis ut porta felis, ut suscipit ipsum. Quisque tempus sagittis libero vitae molestie. Proin suscipit, ligula eget mollis pharetra, augue purus finibus turpis, et egestas ex sapien nec dui. Integer nec libero urna. Vestibulum ut arcu ac dui dictum posuere ac a elit. Pellentesque luctus vitae nulla in tempor. Suspendisse potenti. Proin id leo porta, hendrerit eros non, venenatis ex. Nulla in tincidunt mauris, quis feugiat nunc.'
     }

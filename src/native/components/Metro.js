@@ -19,11 +19,11 @@ import AboutCallout from './AboutCallout';
 import Styles from './Styles/AboutStyles';
 
 const origin = 'Desoto Market';
-const destination = 'Shady Park';
+const destination = 'Desoto Market';
 const GOOGLE_MAPS_APIKEY = 'AIzaSyBKRwVucW38SzlhVysF0wzq0TATsR03_9I';
 
-const LATITUDE        = 37.78825;
-const LONGITUDE       = -122.4324;
+const LATITUDE        = 33.4520419;
+const LONGITUDE       = -112.0749342;
 const LATITUDE_DELTA  = 0.1;
 const LONGITUDE_DELTA = 0.1;
 
@@ -622,7 +622,7 @@ componentDidMount() {
       <Search />
       <MapView ref={component => {this._map = component;}} style={Styles.map} customMapStyle={mapStyles} region={this.state.region} showsUserLocation={true} followUserLocation={true} showsMyLocationButton={true} showsCompass={true}>
         {this.props.metroElements.map((location) => this.renderMapMarkers(location))}
-        <MapView.Marker
+      {/*  <MapView.Marker
             coordinate={{
               latitude: this.state.region.latitude,
               longitude: this.state.region.longitude,
@@ -632,7 +632,7 @@ componentDidMount() {
                 { this.state.region.latitude } / { this.state.region.longitude }
               </Text>
             </View>
-          </MapView.Marker>
+          </MapView.Marker> */}
 
         <MapViewDirections
     mode="transit"
@@ -645,7 +645,7 @@ componentDidMount() {
     lineJoin="round"
   />
       </MapView>
-      <Animated.Text style={{marginTop: 250, opacity: this.state.animatedStartValue}}>{this.state.position.coords.latitude} | {this.state.position.coords.longitude}</Animated.Text>
+      {/*<Animated.Text style={{marginTop: 250, opacity: this.state.animatedStartValue}}>{this.state.position.coords.latitude} | {this.state.position.coords.longitude}</Animated.Text>*/}
     </View>
   );
 }

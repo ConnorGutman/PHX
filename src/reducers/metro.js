@@ -20,9 +20,9 @@ export default function metroReducer(state = initialState, action) {
           route: item.vehicle.trip.route_id,
           latitude: item.vehicle.position.latitude,
           longitude: item.vehicle.position.longitude,
-          speed: item.speed,
+          speed: item.vehicle.position.speed,
           bearing: item.vehicle.position.bearing,
-          licensePlate: item.licensePlate,
+          licensePlate: item.vehicle.vehicle.license_plate,
           timestamp: item.timestamp,
         }));
       }
